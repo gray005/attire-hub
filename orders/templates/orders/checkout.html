@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f5fb;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: center;
+    color: #6b21a8;
+    margin-top: 30px;
+  }
+
+  .checkout-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 40px 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(123, 62, 177, 0.1);
+  }
+
+  .order-summary {
+    background-color: #f3e8ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #4a148c;
+  }
+
+  .order-summary p {
+    margin: 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .btn-pay {
+    background-color: #6b21a8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 60%;
+    font-size: 16px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-pay:hover {
+    background-color: #581c87;
+  }
+
+  .note {
+    text-align: center;
+    margin-top: 15px;
+    color: #7e22ce;
+    font-size: 14px;
+  }
+</style>
+
+<div class="checkout-container">
+  <h2>Checkout</h2>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <p><strong>Total Items:</strong> {{ total_items }}</p>
+    <p><strong>Total Amount:</strong> KSh {{ total_price }}</p>
+  </div>
+
+  <!-- Paystack Payment -->
+  <form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn-pay">Pay with Paystack</button>
+  </form>
+
+  <p class="note">Secure payment powered by Paystack 💳</p>
+</div>
+{% endblock %}

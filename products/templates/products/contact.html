@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contact-container" style="max-width:600px; margin:50px auto; background:#f3e8ff; padding:30px; border-radius:12px; text-align:center;">
+    <h2 style="color:#6b21a8;">📬 Contact Us</h2>
+    <p style="margin-bottom:20px;">Have questions or feedback? We'd love to hear from you! Fill out the form below and we'll get back to you.</p>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+        <input type="email" name="email" placeholder="Your Email" required style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;">
+        <textarea name="message" placeholder="Your Message" required style="width:90%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;" rows="5"></textarea>
+        <br>
+        <button type="submit" style="background-color:#7b38d8; color:white; padding:10px 20px; border-radius:10px; border:none;">Send Message</button>
+    </form>
+</div>
+{% endblock %}

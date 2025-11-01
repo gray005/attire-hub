@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f5fb;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 30px;
+    color: #6b21a8;
+  }
+
+  .cart-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .cart-items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 3px 10px rgba(123, 62, 177, 0.1);
+    padding: 20px 25px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .cart-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(123, 62, 177, 0.15);
+  }
+
+  .cart-item img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #e9d5ff;
+  }
+
+  .cart-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cart-info h4 {
+    margin: 0;
+    color: #4a148c;
+  }
+
+  .cart-info p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .cart-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cart-actions input[type="number"] {
+    width: 55px;
+    padding: 6px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+
+  .btn-update,
+  .btn-remove,
+  .btn-shop,
+  .btn-checkout {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.25s ease;
+  }
+
+  .btn-update {
+    background-color: #7a3eb1;
+  }
+
+  .btn-update:hover {
+    background-color: #622c99;
+  }
+
+  .btn-remove {
+    background-color: #d32f2f;
+  }
+
+  .btn-remove:hover {
+    background-color: #b71c1c;
+  }
+
+  .cart-total {
+    text-align: right;
+    margin-top: 40px;
+  }
+
+  .cart-total h3 {
+    color: #4a148c;
+    font-weight: 600;
+  }
+
+  .cart-buttons {
+    margin-top: 15px;
+  }
+
+  .btn-shop {
+    background-color: #9b59b6;
+    margin-right: 10px;
+  }
+
+  .btn-shop:hover {
+    background-color: #7a3eb1;
+  }
+
+  .btn-checkout {
+    background-color: #6b21a8;
+  }
+
+  .btn-checkout:hover {
+    background-color: #581c87;
+  }
+
+  p.empty {
+    text-align: center;
+    color: #777;
+  }
+</style>
+
+<div class="cart-container">
+  <h2>Your Shopping Cart</h2>
+
+  {% if items %}
+  <div class="cart-items">
+    {% for item in items %}
+    <div class="cart-item">
+      <div class="cart-details">
+        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+        <div class="cart-info">
+          <h4>{{ item.product.name }}</h4>
+          <p>Price: KSh {{ item.product.price }}</p>
+          <p>Subtotal: <strong>KSh {{ item.line_total }}</strong></p>
+        </div>
+      </div>
+
+      <div class="cart-actions">
+        <form action="{% url 'update_cart' %}" method="POST">
+          {% csrf_token %}
+          <input type="number" name="qty-{{ item.product.id }}" value="{{ item.quantity }}" min="1">
+          <button type="submit" class="btn-update">Update</button>
+        </form>
+
+        <form action="{% url 'remove_from_cart' item.product.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit" class="btn-remove">Remove</button>
+        </form>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="cart-total">
+    <h3>Total: KSh {{ total }}</h3>
+    <div class="cart-buttons">
+      <a href="{% url 'product_list' %}" class="btn-shop">Continue Shopping</a>
+      <a href="{% url 'checkout' %}" class="btn-checkout">Checkout</a>
+
+    </div>
+  </div>
+
+  {% else %}
+  <p class="empty">Your cart is empty.</p>
+  {% endif %}
+</div>
+{% endblock %}

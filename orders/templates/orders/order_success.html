@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.success-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: #f3e8ff;
+    padding: 40px 20px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(123, 62, 177, 0.1);
+}
+
+.success-container h2 {
+    color: #6b21a8;
+    margin-bottom: 20px;
+}
+
+.success-container p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+.success-container a {
+    background-color: #7b38d8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.success-container a:hover {
+    background-color: #6220b0;
+}
+</style>
+
+<div class="success-container">
+    <h2>🎉 Thank You!</h2>
+    <p>Your order has been successfully placed. We appreciate your purchase!</p>
+    <a href="{% url 'product_list' %}">Continue Shopping</a>
+</div>
+{% endblock %}
+

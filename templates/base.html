@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Attire Hub</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        /* ---------- Body & General ---------- */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f5fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1;
+        }
+
+        /* ---------- Header & Nav ---------- */
+        header {
+            background: linear-gradient(90deg, #6b21a8, #a76cf5);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 14px;
+            border-radius: 12px;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-buttons a,
+        .profile-btn {
+            background-color: #fff;
+            color: #6b21a8;
+            padding: 6px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .auth-buttons a:hover,
+        .profile-btn:hover {
+            background-color: #e0c7ff;
+            color: #4b0082;
+        }
+
+        .profile-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 160px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #6b21a8;
+            padding: 10px 14px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f2e6f7;
+        }
+
+        .profile-dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f5fb;
+            color: #4b0082;
+            margin-top: auto;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        /* ---------- Messages ---------- */
+        .messages {
+            max-width: 600px;
+            margin: 15px auto;
+            text-align: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        .message {
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: inline-block;
+            opacity: 0.95;
+            transition: opacity 1s ease-out;
+        }
+
+        .message.success {
+            background-color: #e8d4ff;
+            color: #4b0082;
+            border: 1px solid #a76cf5;
+            box-shadow: 0 2px 6px rgba(167, 108, 245, 0.2);
+        }
+
+        .message.error {
+            background-color: #ffd6d6;
+            color: #8b0000;
+            border: 1px solid #ff9999;
+            box-shadow: 0 2px 6px rgba(255, 153, 153, 0.2);
+        }
+
+        .message.info {
+            background-color: #e0e0ff;
+            color: #3333aa;
+            border: 1px solid #b0b0ff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------- Floating Contact Button ---------- */
+        .contact-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #7b38d8;
+            color: white;
+            padding: 14px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(123, 62, 177, 0.3);
+            animation: float 2.5s ease-in-out infinite;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            z-index: 1000;
+        }
+
+        .contact-btn:hover {
+            background-color: #6220b0;
+            transform: scale(1.1);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Attire Hub🏷️</h1>
+        <nav>
+            <a href="{% url 'product_list' %}">Home</a>
+            <a href="{% url 'cart' %}">Cart</a>
+
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <div class="profile-dropdown">
+                    <button class="profile-btn">👤 {{ user.username }}</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'profile' %}">View Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% if messages %}
+        <div class="messages" id="messages">
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 Attire Hub | All Rights Reserved.</p>
+    </footer>
+
+    <!-- Floating Contact Button -->
+    <a href="{% url 'contact' %}" class="contact-btn">Contact Us</a>
+
+    <script>
+        // Fade out messages after 4 seconds
+        setTimeout(() => {
+            const messages = document.getElementById('messages');
+            if (messages) {
+                messages.style.opacity = '0';
+                setTimeout(() => messages.remove(), 1000);
+            }
+        }, 4000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="auth-container">
+    <h2>Create Account 💜</h2>
+    <p class="subtitle">Join our fashion family today</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Choose a username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email (optional)</label>
+            <input type="email" name="email" id="email" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="password1">Password</label>
+            <input type="password" name="password1" id="password1" placeholder="Enter password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input type="password" name="password2" id="password2" placeholder="Confirm password" required>
+        </div>
+
+        <button type="submit" class="btn-register">Register</button>
+    </form>
+
+    <p class="switch-link">Already have an account? 
+        <a href="{% url 'login' %}">Login here</a>
+    </p>
+</div>
+
+<style>
+.auth-container {
+    max-width: 450px;
+    margin: 40px auto;
+    background: #f8f4fb;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.15);
+    text-align: center;
+}
+
+.auth-container h2 {
+    color: #5e3a87;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #7b6c9f;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #5e3a87;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1c4e9;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #7e57c2;
+    box-shadow: 0 0 5px rgba(126, 87, 194, 0.4);
+}
+
+.btn-register {
+    width: 100%;
+    background-color: #7e57c2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-register:hover {
+    background-color: #6a48a5;
+}
+
+.switch-link {
+    margin-top: 20px;
+    color: #7b6c9f;
+}
+
+.switch-link a {
+    color: #6a48a5;
+    font-weight: bold;
+    text-decoration: none;
+}
+.switch-link a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
